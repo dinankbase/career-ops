@@ -4,8 +4,8 @@ Interaktiver Modus für den Moment, in dem der Kandidat in Chrome ein Bewerbungs
 
 ## Voraussetzungen
 
-- **Empfohlen mit /browser Skill**: Claude kann mit dem `/browser` Skill die Seite navigieren und mit ihr interagieren.
-- **Ohne /browser Skill**: Der Kandidat teilt einen Screenshot oder fügt die Fragen manuell ein.
+- **Empfohlen mit sichtbarem Playwright**: Im sichtbaren Modus sieht der Kandidat den Browser, und Claude kann mit der Seite interagieren.
+- **Ohne Playwright**: Der Kandidat teilt einen Screenshot oder fügt die Fragen manuell ein.
 
 ## Workflow
 
@@ -22,9 +22,9 @@ Interaktiver Modus für den Moment, in dem der Kandidat in Chrome ein Bewerbungs
 
 ## Schritt 1 — Stellenanzeige erkennen
 
-**Mit /browser Skill:** Aktive Seite navigieren und lesen. Titel, URL und sichtbaren Inhalt erfassen.
+**Mit Playwright:** Snapshot der aktiven Seite. Titel, URL und sichtbaren Inhalt lesen.
 
-**Ohne /browser Skill:** Den Kandidaten bitten, eines der folgenden zu tun:
+**Ohne Playwright:** Den Kandidaten bitten, eines der folgenden zu tun:
 - Einen Screenshot des Formulars teilen (das Read-Tool kann Bilder lesen)
 - Die Fragen des Formulars als Text einfügen
 - Firma + Rolle nennen, damit wir den Kontext suchen können
@@ -104,7 +104,7 @@ Hinweise:
 Wenn der Kandidat bestätigt, dass die Bewerbung raus ist:
 1. Status in `applications.md` von "Evaluated" auf "Applied" setzen
 2. Block G im Report mit den finalen Antworten aktualisieren
-3. Nächsten Schritt vorschlagen: `/career-ops contact` für LinkedIn-Outreach an den Personalleiter / Hiring Manager
+3. Nächsten Schritt vorschlagen: `/career-ops contacto` für LinkedIn-Outreach an den Personalleiter / Hiring Manager
 
 ## Scroll-Handling
 

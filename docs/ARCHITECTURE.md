@@ -37,7 +37,7 @@
 ## Evaluation Flow (Single Offer)
 
 1. **Input**: User pastes JD text or URL
-2. **Extract**: /browser skill or WebFetch extracts JD from URL
+2. **Extract**: Playwright/WebFetch extracts JD from URL
 3. **Classify**: Detect archetype (1 of 6 types)
 4. **Evaluate**: 6 blocks (A-F):
    - A: Role summary
@@ -48,7 +48,7 @@
    - F: Interview prep (STAR stories)
 5. **Score**: Weighted average across 10 dimensions (1-5)
 6. **Report**: Save as `reports/{num}-{company}-{date}.md`
-7. **PDF**: Generate ATS-optimized CV (`generate-pdf.py`)
+7. **PDF**: Generate ATS-optimized CV (`generate-pdf.mjs`)
 8. **Track**: Write TSV to `batch/tracker-additions/`, auto-merged
 
 ## Batch Processing

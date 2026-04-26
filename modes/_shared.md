@@ -29,7 +29,7 @@ The evaluation uses 6 blocks (A-F) with a global score of 1-5:
 
 | Dimension | What it measures |
 |-----------|-----------------|
-| CV Match | Skills, experience, proof points alignment |
+| Match con CV | Skills, experience, proof points alignment |
 | North Star alignment | How well the role fits the user's target archetypes (from _profile.md) |
 | Comp | Salary vs market (5=top quartile, 1=well below) |
 | Cultural signals | Company culture, growth, stability, remote policy |
@@ -42,21 +42,37 @@ The evaluation uses 6 blocks (A-F) with a global score of 1-5:
 - 3.5-3.9 → Decent but not ideal, apply only if specific reason
 - Below 3.5 → Recommend against applying (see Ethical Use in CLAUDE.md)
 
+## Posting Legitimacy (Block G)
+
+Block G assesses whether a posting is likely a real, active opening. It does NOT affect the 1-5 global score -- it is a separate qualitative assessment.
+
+**Three tiers:**
+- **High Confidence** -- Real, active opening (most signals positive)
+- **Proceed with Caution** -- Mixed signals, worth noting (some concerns)
+- **Suspicious** -- Multiple ghost indicators, user should investigate first
+
+**Key signals (weighted by reliability):**
+
+| Signal | Source | Reliability | Notes |
+|--------|--------|-------------|-------|
+| Posting age | Page snapshot | High | Under 30d=good, 30-60d=mixed, 60d+=concerning (adjusted for role type) |
+| Apply button active | Page snapshot | High | Direct observable fact |
+| Tech specificity in JD | JD text | Medium | Generic JDs correlate with ghost postings but also with poor writing |
+| Requirements realism | JD text | Medium | Contradictions are a strong signal, vagueness is weaker |
+| Recent layoff news | WebSearch | Medium | Must consider department, timing, and company size |
+| Reposting pattern | scan-history.tsv | Medium | Same role reposted 2+ times in 90 days is concerning |
+| Salary transparency | JD text | Low | Jurisdiction-dependent, many legitimate reasons to omit |
+| Role-company fit | Qualitative | Low | Subjective, use only as supporting signal |
+
+**Ethical framing (MANDATORY):**
+- This helps users prioritize time on real opportunities
+- NEVER present findings as accusations of dishonesty
+- Present signals and let the user decide
+- Always note legitimate explanations for concerning signals
+
 ## Archetype Detection
 
 Classify every offer into one of these types (or hybrid of 2):
-
-### Creative / Advertising / Marketing
-
-| Archetype | Key signals in JD |
-|-----------|-------------------|
-| Creative Strategist (DR/Performance) | "creative strategy", "ad creative", "hooks", "performance creative", "creative testing", "direct response", "angles" |
-| Copywriter-Producer | "copywriting", "direct response", "UGC", "video ads", "full-stack creative", "VSL", "advertorial", "email copy" |
-| Growth Creative / Paid Social | "Meta ads", "TikTok ads", "paid social", "ROAS", "CPA", "media buying", "creative testing" |
-| Content Strategist (DTC/Ecom) | "content strategy", "DTC", "ecommerce", "email marketing", "landing pages", "funnels", "retention" |
-| Performance Marketing | "performance marketing", "paid acquisition", "campaign management", "growth marketing", "demand gen" |
-
-### Tech / AI
 
 | Archetype | Key signals in JD |
 |-----------|-------------------|
@@ -66,12 +82,6 @@ Classify every offer into one of these types (or hybrid of 2):
 | AI Solutions Architect | "architecture", "enterprise", "integration", "design", "systems" |
 | AI Forward Deployed | "client-facing", "deploy", "prototype", "fast delivery", "field" |
 | AI Transformation | "change management", "adoption", "enablement", "transformation" |
-
-### Sales (fallback)
-
-| Archetype | Key signals in JD |
-|-----------|-------------------|
-| B2B SaaS Sales | "account executive", "SDR", "BDR", "sales cycle", "quota", "pipeline", "SaaS sales" |
 
 After detecting archetype, read `modes/_profile.md` for the user's specific framing and proof points for that archetype.
 
@@ -110,12 +120,12 @@ After detecting archetype, read `modes/_profile.md` for the user's specific fram
 |------|-----|
 | WebSearch | Comp research, trends, company culture, LinkedIn contacts, fallback for JDs |
 | WebFetch | Fallback for extracting JDs from static pages |
-| `/browser` skill | Verify offers (navigate + read page content). Use the `/browser` skill for all browser automation. **NEVER 2+ agents with browser in parallel.** |
+| Playwright | Verify offers (browser_navigate + browser_snapshot). **NEVER 2+ agents with Playwright in parallel.** |
 | Read | cv.md, _profile.md, article-digest.md, cv-template.html |
 | Write | Temporary HTML for PDF, applications.md, reports .md |
 | Edit | Update tracker |
-| Canva MCP | Optional visual CV generation. Duplicate base design, edit text, export PDF. Requires `canva_resume_design_id` in profile.yml. |
-| Bash | `python generate-pdf.py` |
+| Canva MCP | Optional visual CV generation. Duplicate base design, edit text, export PDF. Requires `cv.canva_resume_design_id` in profile.yml. |
+| Bash | `node generate-pdf.mjs` |
 
 ### Time-to-offer priority
 - Working demo + metrics > perfection
@@ -128,7 +138,7 @@ After detecting archetype, read `modes/_profile.md` for the user's specific fram
 
 These rules apply to ALL generated text that ends up in candidate-facing documents: PDF summaries, bullets, cover letters, form answers, LinkedIn messages. They do NOT apply to internal evaluation reports.
 
-### Avoid cliche phrases
+### Avoid cliché phrases
 - "passionate about" / "results-oriented" / "proven track record"
 - "leveraged" (use "used" or name the tool)
 - "spearheaded" (use "led" or "ran")
@@ -138,7 +148,7 @@ These rules apply to ALL generated text that ends up in candidate-facing documen
 - "demonstrated ability to" / "best practices" (name the practice)
 
 ### Unicode normalization for ATS
-`generate-pdf.py` automatically normalizes em-dashes, smart quotes, and zero-width characters to ASCII equivalents for maximum ATS compatibility. But avoid generating them in the first place.
+`generate-pdf.mjs` automatically normalizes em-dashes, smart quotes, and zero-width characters to ASCII equivalents for maximum ATS compatibility. But avoid generating them in the first place.
 
 ### Vary sentence structure
 - Don't start every bullet with the same verb

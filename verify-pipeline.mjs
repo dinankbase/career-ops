@@ -14,7 +14,7 @@
  * Run: node career-ops/verify-pipeline.mjs
  */
 
-import { readFileSync, readdirSync, existsSync } from 'fs';
+import { readFileSync, readdirSync, existsSync, mkdirSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -29,21 +29,24 @@ const STATES_FILE = existsSync(join(CAREER_OPS, 'templates/states.yml'))
   ? join(CAREER_OPS, 'templates/states.yml')
   : join(CAREER_OPS, 'states.yml');
 
+// Ensure required directories exist (fresh setup)
+mkdirSync(join(CAREER_OPS, 'data'), { recursive: true });
+mkdirSync(REPORTS_DIR, { recursive: true });
+
 const CANONICAL_STATUSES = [
   'evaluated', 'applied', 'responded', 'interview',
   'offer', 'rejected', 'discarded', 'skip',
 ];
 
 const ALIASES = {
-  // Legacy Spanish values (backward compatibility)
-  'evaluada': 'evaluated', 'evaluar': 'evaluated', 'verificar': 'evaluated', 'condicional': 'evaluated',
-  'aplicado': 'applied', 'aplicada': 'applied', 'enviada': 'applied', 'sent': 'applied',
+  'evaluada': 'evaluated', 'condicional': 'evaluated', 'hold': 'evaluated', 'evaluar': 'evaluated', 'verificar': 'evaluated',
+  'aplicado': 'applied', 'enviada': 'applied', 'aplicada': 'applied', 'applied': 'applied', 'sent': 'applied',
   'respondido': 'responded',
   'entrevista': 'interview',
   'oferta': 'offer',
   'rechazado': 'rejected', 'rechazada': 'rejected',
   'descartado': 'discarded', 'descartada': 'discarded', 'cerrada': 'discarded', 'cancelada': 'discarded',
-  'no aplicar': 'skip', 'no_aplicar': 'skip', 'monitor': 'skip',
+  'no aplicar': 'skip', 'no_aplicar': 'skip', 'monitor': 'skip', 'geo blocker': 'skip',
 };
 
 let errors = 0;

@@ -14,7 +14,7 @@
 git clone https://github.com/santifer/career-ops.git
 cd career-ops
 npm install
-pip install weasyprint            # Required for PDF generation
+npx playwright install chromium   # Required for PDF generation
 ```
 
 ### 2. Configure your profile
@@ -76,5 +76,5 @@ node verify-pipeline.mjs     # Check pipeline integrity
 ```bash
 cd dashboard
 go build -o career-dashboard .
-./career-dashboard            # Opens TUI pipeline viewer
+./career-dashboard --path ..  # Opens TUI pipeline viewer
 ```
