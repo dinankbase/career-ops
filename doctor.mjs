@@ -41,21 +41,23 @@ function checkDependencies() {
   };
 }
 
-import { execSync } from 'child_process';
-
-function checkWeasyprint() {
+async function checkPlaywright() {
   try {
-    const version = execSync('python -c "import weasyprint; print(weasyprint.__version__)"', {
-      encoding: 'utf-8',
-      timeout: 10000,
-      stdio: ['pipe', 'pipe', 'pipe'],
-    }).trim();
-    return { pass: true, label: `WeasyPrint installed (v${version})` };
+    const { chromium } = await import('playwright');
+    const execPath = chromium.executablePath();
+    if (existsSync(execPath)) {
+      return { pass: true, label: 'Playwright chromium installed' };
+    }
+    return {
+      pass: false,
+      label: 'Playwright chromium not installed',
+      fix: 'Run: npx playwright install chromium',
+    };
   } catch {
     return {
       pass: false,
-      label: 'WeasyPrint not installed',
-      fix: 'Run: pip install weasyprint',
+      label: 'Playwright chromium not installed',
+      fix: 'Run: npx playwright install chromium',
     };
   }
 }
@@ -154,7 +156,7 @@ async function main() {
   const checks = [
     checkNodeVersion(),
     checkDependencies(),
-    checkWeasyprint(),
+    await checkPlaywright(),
     checkCv(),
     checkProfile(),
     checkPortals(),
@@ -185,6 +187,8 @@ async function main() {
     process.exit(1);
   } else {
     console.log('Result: All checks passed. You\'re ready to go! Run `claude` to start.');
+    console.log('');
+    console.log('Join the community: https://discord.gg/8pRpHETxa4');
     process.exit(0);
   }
 }

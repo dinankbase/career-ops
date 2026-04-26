@@ -198,8 +198,8 @@ Dans les offres et negociations francophones, certains termes n'existent pas sur
 |-------|-------|
 | WebSearch | Recherche remuneration, tendances, culture d'entreprise, contacts LinkedIn, fallback offres |
 | WebFetch | Fallback pour extraire les offres depuis des pages statiques |
-| /browser skill | Verifier si les offres sont actives, extraire les offres depuis des SPAs. Utiliser le skill `/browser` pour naviguer et lire les pages web |
+| Playwright | Verifier si les offres sont actives (browser_navigate + browser_snapshot), extraire les offres depuis des SPAs. **CRITIQUE : JAMAIS 2+ agents en parallele avec Playwright -- ils partagent la meme instance navigateur** |
 | Read | cv.md, article-digest.md, cv-template.html |
 | Write | HTML temporaire pour PDF, applications.md, reports .md |
 | Edit | Mettre a jour le tracker |
-| Bash | `python generate-pdf.py` |
+| Bash | `node generate-pdf.mjs` |

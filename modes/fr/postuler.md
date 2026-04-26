@@ -4,8 +4,8 @@ Mode interactif pour le moment ou le candidat remplit un formulaire de candidatu
 
 ## Prerequis
 
-- **Ideal avec le skill /browser** : Claude peut naviguer et interagir avec la page via le skill `/browser`.
-- **Sans le skill /browser** : le candidat partage une capture d'ecran ou colle les questions manuellement.
+- **Ideal avec Playwright visible** : En mode visible, le candidat voit le navigateur et Claude peut interagir avec la page.
+- **Sans Playwright** : le candidat partage une capture d'ecran ou colle les questions manuellement.
 
 ## Workflow
 
@@ -22,9 +22,9 @@ Mode interactif pour le moment ou le candidat remplit un formulaire de candidatu
 
 ## Etape 1 -- Detecter l'offre
 
-**Avec le skill /browser :** Naviguer vers la page active. Lire titre, URL et contenu visible.
+**Avec Playwright :** Snapshot de la page active. Lire titre, URL et contenu visible.
 
-**Sans le skill /browser :** Demander au candidat de :
+**Sans Playwright :** Demander au candidat de :
 - Partager une capture d'ecran du formulaire (le Read tool lit les images)
 - Ou coller les questions du formulaire en texte
 - Ou indiquer entreprise + role pour qu'on cherche le contexte
@@ -104,7 +104,7 @@ Notes :
 Si le candidat confirme que la candidature est envoyee :
 1. Mettre a jour le statut dans `applications.md` de "Evaluated" a "Applied"
 2. Mettre a jour le Bloc G du report avec les reponses finales
-3. Suggerer l'etape suivante : `/career-ops contact` pour du LinkedIn outreach vers le hiring manager
+3. Suggerer l'etape suivante : `/career-ops contacto` pour du LinkedIn outreach vers le hiring manager
 
 ## Gestion du defilement
 
