@@ -13,16 +13,16 @@
 
 ## Plan
 
-- [ ] 1. `git init` in `F:\Projects\careers`
-- [ ] 2. Verify `.gitignore` covers personal data (cv.md, profile.yml, applications.md, reports/, output/, jds/, inbox/, interview-prep/, data/)
-- [ ] 3. `git add .` and inspect what's staged before committing (sanity check no secrets sneak in)
-- [ ] 4. First commit: `chore: fork from santifer/career-ops v1.2.0 (baseline)`
-- [ ] 5. Tag the baseline: `git tag fork-base-v1.2.0`
-- [ ] 6. Add upstream remote: `git remote add upstream https://github.com/santifer/career-ops.git`
-- [ ] 7. `git fetch upstream` to make upstream history available locally
-- [ ] 8. User creates empty GitHub repo `<username>/career-ops` (private)
-- [ ] 9. `git remote add origin git@github.com:<username>/career-ops.git`
-- [ ] 10. `git push -u origin main` and `git push --tags`
+- [x] 1. `git init` in `F:\Projects\careers`
+- [x] 2. Verify `.gitignore` covers personal data (added `inbox/*` — third-party CV PII)
+- [x] 3. `git add .` and inspect what's staged before committing
+- [x] 4. First commit: `chore: fork from santifer/career-ops v1.2.0 (baseline)` → `c3f71c9`
+- [x] 5. Tag the baseline: `git tag fork-base-v1.2.0`
+- [x] 6. Add upstream remote: `git remote add upstream https://github.com/santifer/career-ops.git`
+- [x] 7. `git fetch upstream` — 152 upstream commits + tags v1.2.0…v1.6.0 fetched
+- [ ] 8. **USER**: create empty GitHub repo `<username>/career-ops` (private, no README/license/.gitignore)
+- [ ] 9. **USER**: `git remote add origin <url>`
+- [ ] 10. **USER**: `git push -u origin main && git push --tags`
 
 ## How updates work after this
 
